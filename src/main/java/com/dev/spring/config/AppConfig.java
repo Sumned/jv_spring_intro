@@ -10,9 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.stereotype.Repository;
 
-@Repository
 @Configuration
 @PropertySource("classpath:db.properties")
 @ComponentScan(basePackages = {
