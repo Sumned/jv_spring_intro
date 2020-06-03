@@ -38,20 +38,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> listUsers() {
-        Transaction transaction = null;
-        Session session = sessionFactory.openSession();
-        try {
-            transaction = session.beginTransaction();
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session
                     .createQuery("select u from User u", User.class);
             return query.getResultList();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throw new DataProcessingException("Can't find user by email", e);
-        } finally {
-            session.close();
         }
     }
 }
