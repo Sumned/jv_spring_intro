@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
     public void add(User user) {
         Transaction transaction = null;
         Session session = sessionFactory.openSession();
-        try{
+        try {
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
