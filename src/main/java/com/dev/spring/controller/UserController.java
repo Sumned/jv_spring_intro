@@ -26,7 +26,8 @@ public class UserController {
     @GetMapping(value = "/user")
     public List<UserResponseDto> getAll() {
         return userService.listUsers().stream()
-                .map(UserResponseDto::new).collect(Collectors.toList());
+                .map(user -> new UserResponseDto(user.getId(), user.getEmail(), user.getPassword()))
+                .collect(Collectors.toList());
     }
 
     @GetMapping
@@ -52,6 +53,7 @@ public class UserController {
 
     @GetMapping(value = "/user/{id}")
     public UserResponseDto get(@PathVariable Long id) {
-        return new UserResponseDto(userService.getByUserId(id));
+        User user = userService.getByUserId(id);
+        return new UserResponseDto(user.getId(), user.getEmail(), user.getPassword());
     }
 }

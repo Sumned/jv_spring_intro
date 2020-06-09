@@ -1,7 +1,5 @@
 package com.dev.spring.dto;
 
-import com.dev.spring.model.User;
-
 public class UserResponseDto {
     private Long id;
     private String email;
@@ -11,10 +9,10 @@ public class UserResponseDto {
 
     }
 
-    public UserResponseDto(User user) {
-        this.id = user.getId();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
+    public UserResponseDto(Long id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
