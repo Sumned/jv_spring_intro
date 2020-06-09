@@ -4,8 +4,8 @@ import com.dev.spring.config.AppConfig;
 import com.dev.spring.dto.UserResponseDto;
 import com.dev.spring.model.User;
 import com.dev.spring.service.UserService;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,12 +25,11 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public List<UserResponseDto> getAll() {
-        List<UserResponseDto> dtoList = new ArrayList<>();
-        userService.listUsers().forEach(user -> dtoList.add(new UserResponseDto(user)));
-        return dtoList;
+        return userService.listUsers().stream()
+                .map(UserResponseDto::new).collect(Collectors.toList());
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     public ModelAndView index() {
         LOGGER.info("Hello");
         ModelAndView modelAndView = new ModelAndView();
@@ -53,13 +52,6 @@ public class UserController {
 
     @GetMapping(value = "/user/{id}")
     public UserResponseDto get(@PathVariable Long id) {
-        UserResponseDto dto = null;
-        for (User user : userService.listUsers()) {
-            if (user.getId().equals(id)) {
-                dto = new UserResponseDto(user);
-                break;
-            }
-        }
-        return dto;
+        return new UserResponseDto(userService.getByUserId(id));
     }
 }
