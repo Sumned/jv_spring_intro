@@ -18,7 +18,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
         "com.dev.spring.service"
 })
 public class AppConfig {
-    private Environment env;
+    private final Environment env;
 
     public AppConfig(Environment env) {
         this.env = env;
